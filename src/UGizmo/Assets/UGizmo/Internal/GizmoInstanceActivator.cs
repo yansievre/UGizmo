@@ -63,7 +63,7 @@ namespace UGizmo.Internal
             where TJobData : unmanaged
         {
             TDrawer gizmoDrawer = new TDrawer();
-            (Mesh mesh, Material material) = AssetUtility.CreateMeshAndMaterial(asset.MeshName, asset.MaterialName);
+            (Mesh mesh, Material material) = asset.CreateMeshAndMaterial();
             gizmoDrawer.Initialize(mesh, material);
 
             Gizmo<TDrawer, TJobData>.Initialize(gizmoDrawer);

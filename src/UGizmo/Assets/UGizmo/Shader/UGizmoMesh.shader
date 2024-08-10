@@ -75,8 +75,8 @@ Shader "UGizmo/Mesh"
         Pass
         {
             Cull Back
-            ZTest Greater
-            ZWrite Off
+            ZTest LEqual
+            ZWrite On
             Blend SrcAlpha OneMinusSrcAlpha
             Offset -1, -1
 

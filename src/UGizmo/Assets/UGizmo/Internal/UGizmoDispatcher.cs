@@ -64,6 +64,7 @@ namespace UGizmo.Internal
         }
 
         private static int previousFrame;
+        internal static bool forceDraw;
 
         private static void OnEndCameraRendering(ScriptableRenderContext context, Camera camera)
         {
@@ -85,8 +86,9 @@ namespace UGizmo.Internal
             bool updateDrawData = previousFrame != Time.renderedFrameCount;
 
             //When the frame is updated
-            if (updateDrawData)
+            if (updateDrawData || forceDraw)
             {
+                forceDraw = false;
                 drawSystem.ExecuteCreateJob();
             }
 

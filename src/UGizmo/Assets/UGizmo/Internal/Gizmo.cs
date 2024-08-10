@@ -27,7 +27,6 @@ namespace UGizmo.Internal
             {
                 return;
             }
-
             gizmoDrawer.Add(data, duration);
         }
 

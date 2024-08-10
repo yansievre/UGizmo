@@ -24,6 +24,7 @@ namespace UGizmo
         private static readonly float pointRadius = 0.08f;
         private static readonly float alphaRate = 0.3f;
 
+       
         #region Primitive
 
         /// <summary>
@@ -199,7 +200,7 @@ namespace UGizmo
             float3 diff = point2 - point1;
             GizmoUtility.LengthAndNormalize(diff, out float length, out float3 normal);
             GizmoUtility.FromUpToRotation(normal, out quaternion rotation);
-            DrawCylinderCore(point1 * diff * 0.5f, rotation, new float3(radius * 2f, length, radius * 2f), color, duration);
+            DrawCylinderCore((float3)point1 + diff * 0.5f, rotation, new float3(radius * 2f, length, radius * 2f), color, duration);
         }
 
         /// <summary>
@@ -438,6 +439,19 @@ namespace UGizmo
         }
 
         /// <summary>
+        /// Draw a 2D triangle.
+        /// </summary>
+        /// <param name="p2"></param>
+        /// <param name="color"></param>
+        /// <param name="duration"></param>
+        /// <param name="p0"></param>
+        /// <param name="p1"></param>
+        public static void DrawTriangle2D(Vector3 p0, Vector3 p1, Vector3 p2, Color color, float duration = 0f)
+        {
+            DrawTriangleCore(p0, p1, p2, color, duration);
+        }
+        
+        /// <summary>
         /// Draw a 2D triangle oriented in the z direction.
         /// </summary>
         /// <param name="position"></param>
@@ -451,6 +465,7 @@ namespace UGizmo
             DrawTriangleCore(position, to, size, color, duration);
         }
 
+    
         /// <summary>
         /// Draw a 2D wire triangle.
         /// </summary>

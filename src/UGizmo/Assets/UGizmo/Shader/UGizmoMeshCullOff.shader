@@ -11,7 +11,7 @@ Shader "UGizmo/MeshCullOff"
         {
             Cull Off
             ZTest LEqual
-            ZWrite Off
+            ZWrite On
             Blend SrcAlpha OneMinusSrcAlpha
             Offset -1, -1
 
@@ -25,6 +25,7 @@ Shader "UGizmo/MeshCullOff"
             #pragma vertex vert
             #pragma fragment frag
             #pragma multi_compile_instancing
+            
             #include "UnityCG.cginc"
 
             struct DrawData
@@ -69,8 +70,8 @@ Shader "UGizmo/MeshCullOff"
         Pass
         {
             Cull Off
-            ZTest Greater
-            ZWrite Off
+            ZTest LEqual
+            ZWrite On
             Blend SrcAlpha OneMinusSrcAlpha
             Offset -1, -1
 

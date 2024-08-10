@@ -10,7 +10,7 @@ Shader "UGizmo/MeshFront"
         Pass
         {
             Cull Back
-            ZTest Always
+            ZTest LEqual
             ZWrite On
             Blend SrcAlpha OneMinusSrcAlpha
             Offset -1, -1

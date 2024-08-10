@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.Burst;
 using UnityEngine;
@@ -21,6 +22,7 @@ namespace UGizmo.Internal
     {
         public virtual int RenderQueue => 1000;
 
+        private HashSet<int> renderedData;
         private GizmoDrawBuffer<TJobData> drawBuffer;
         private ContinuousGizmoBuffer<TJobData> continuousGizmoBuffer;
         private Mesh mesh;
@@ -32,6 +34,8 @@ namespace UGizmo.Internal
         {
             this.mesh = mesh;
             this.material = material;
+            
+            renderedData = new HashSet<int>();
 
             drawBuffer = new GizmoDrawBuffer<TJobData>();
             continuousGizmoBuffer = new ContinuousGizmoBuffer<TJobData>(data => drawBuffer.Add(data));
@@ -40,6 +44,13 @@ namespace UGizmo.Internal
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Add(in TJobData jobData, float duration)
         {
+            var hashCode = jobData.GetHashCode();
+            if(!renderedData.Add(hashCode))
+            {
+                return;
+            }
+            UGizmoDispatcher.forceDraw = true;
+            
             if (duration > 0f)
             {
                 continuousGizmoBuffer.Add(jobData, duration);
@@ -81,6 +92,7 @@ namespace UGizmo.Internal
 
         public void UploadGpuData()
         {
+            renderedData.Clear();
             drawBuffer.UploadGpuData();
 
             //Swap buffer

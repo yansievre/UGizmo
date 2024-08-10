@@ -11,7 +11,8 @@ namespace UGizmo
     public static partial class UGizmos
     {
         private static readonly LineData[] wireLineBuffer = new LineData[2049];
-
+        
+        
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void DrawPlaneCore(float3 position, quaternion rotation, float2 size, Color color, float duration)
         {
@@ -26,12 +27,22 @@ namespace UGizmo
             PreparableGizmo<WirePlane, PrimitiveData>.AddData(data, duration);
         }
 
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static void DrawTriangleCore(float3 p0, float3 p1, float3 p2, Color color, float duration = 0f)
+        {
+            var data = new PolyTriangleData(p0,p1,p2, color);
+            PreparableGizmo<PolyTriangle, PolyTriangleData>.AddData(data, duration);
+        }
+        
+        
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void DrawTriangleCore(float3 position, quaternion rotation, float2 size, Color color, float duration)
         {
             var data = new PrimitiveData(position, rotation, new Vector3(size.x, size.y, 1f), color);
             Gizmo<Triangle, PrimitiveData>.AddData(data, duration);
         }
+        
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void DrawWireTriangleCore(float3 position, quaternion rotation, float2 size, Color color, float duration)
