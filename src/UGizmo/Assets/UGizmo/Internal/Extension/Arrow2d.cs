@@ -8,7 +8,7 @@ namespace UGizmo.Internal.Extension
         public override JobHandle Schedule()
         {
             PrimitiveData* planeBuffer = Gizmo<Plane, PrimitiveData>.Reserve(InstanceCount);
-            PrimitiveData* triangleBuffer = Gizmo<Triangle, PrimitiveData>.Reserve(InstanceCount);
+            PrimitiveData* triangleBuffer = Gizmo<Triangle, PrimitiveData>.Reserve(InstanceCount*2);
             LineData* lineBuffer = Gizmo<WireLine, LineData>.Reserve(InstanceCount * 7);
 
             JobHandle jobHandle = new CreateArrow2dJob()

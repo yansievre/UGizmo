@@ -28,8 +28,9 @@ namespace UGizmo.Internal.Extension.Jobs
         public LineData* LineResult;
 
         private const float HeadMultiplier = 2f;
-        private const float FixMultiplier = 1.155f;
+        private const float FixMultiplier = 1f;
         private const int LineCount = 7;
+        private const int TriangleCount = 2;
 
         [BurstCompile]
         public void Execute([AssumeRange(0, int.MaxValue)] int index)
@@ -63,7 +64,6 @@ namespace UGizmo.Internal.Extension.Jobs
 
             //Body Plane
             float3 bodyPosition = arrowData->From + borderPoint * 0.5f;
-            float3 headPosition = (p5 + p6 + p7) / 3f;
 
             LineResult[LineCount * index + 0] = new LineData(p1, p2, arrowData->Color);
             LineResult[LineCount * index + 1] = new LineData(p1, p3, arrowData->Color);
@@ -74,8 +74,13 @@ namespace UGizmo.Internal.Extension.Jobs
             LineResult[LineCount * index + 6] = new LineData(p6, p7, arrowData->Color);
             
             PlaneResult[index] = new PrimitiveData(bodyPosition, rotationPlane, new float3(arrowData->Width, 1f, bodyLength), planeColor);
-            TriangleResult[index] = new PrimitiveData(headPosition, rotation,
-                new float3(arrowData->Width * HeadMultiplier, headLength * FixMultiplier, 1f),
+            
+            float3 headPosition = (p5 + p6) / 2f;
+            TriangleResult[TriangleCount * index + 0] = new PrimitiveData(headPosition, rotation,
+                new float3(-arrowData->Width * HeadMultiplier/2, headLength * FixMultiplier, 1f),
+                planeColor);
+            TriangleResult[TriangleCount * index + 1] = new PrimitiveData(headPosition, rotation,
+                new float3(arrowData->Width * HeadMultiplier/2, headLength * FixMultiplier, 1f),
                 planeColor);
 
         }

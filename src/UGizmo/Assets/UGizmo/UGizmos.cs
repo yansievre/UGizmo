@@ -789,7 +789,7 @@ namespace UGizmo
         /// <param name="duration"></param>
         public static void DrawMeasure(Vector3 from, Vector3 to, float interval, Color color, float duration = 0f)
         {
-            Camera camera = Camera.main;
+            Camera camera = Camera.current;
             float3 a = from;
             float3 b = to;
             float3 diff = to - from;
