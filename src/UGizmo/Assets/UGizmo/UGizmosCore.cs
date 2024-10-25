@@ -64,7 +64,14 @@ namespace UGizmo
             var data = new PrimitiveData(position, rotation, new Vector3(radius, 1f, radius), color);
             Gizmo<Circle, PrimitiveData>.AddData(data, duration);
         }
-
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static void DrawCircleCore(float3 position, quaternion rotation, float3 scale, Color color, float duration)
+        {
+            var data = new PrimitiveData(position, rotation, scale, color);
+            Gizmo<Circle, PrimitiveData>.AddData(data, duration);
+        }
+        
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void DrawWireCircleCore(float3 position, quaternion rotation, float radius, Color color, float duration)
         {
@@ -72,6 +79,13 @@ namespace UGizmo
             Gizmo<WireCircle, PrimitiveData>.AddData(data, duration);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static void DrawWireCircleCore(float3 position, quaternion rotation, float3 scale, Color color, float duration)
+        {
+            var data = new PrimitiveData(position, rotation, scale, color);
+            Gizmo<WireCircle, PrimitiveData>.AddData(data, duration);
+        }
+        
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void DrawWireSphereCore(float3 position, quaternion rotation, float radius, Color color, float duration)
         {

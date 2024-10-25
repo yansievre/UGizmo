@@ -343,6 +343,12 @@ namespace UGizmo
             DrawCircleCore(position, GizmoUtility.GetRotate90X(), radius, color, duration);
         }
 
+        public static void DrawCircle2D(Vector3 position, Quaternion rotation, Vector2 size, Color color, float duration = 0f)
+        {
+            GizmoUtility.Rotate90X(rotation, out quaternion result);
+            DrawCircleCore(position, result, new Vector3(size.x, 1f, size.y), color, duration);
+        }
+        
         /// <summary>
         /// Draw a 2D wire circle.
         /// </summary>
@@ -357,6 +363,19 @@ namespace UGizmo
             DrawWireCircleCore(position, result, radius, color, duration);
         }
 
+        /// <summary>
+        /// Draw a 2D wire circle.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="rotation"></param>
+        /// <param name="size"></param>
+        /// <param name="color"></param>
+        /// <param name="duration"></param>
+        public static void DrawWireCircle2D(Vector3 position, Quaternion rotation, Vector2 size, Color color, float duration = 0f)
+        {
+            GizmoUtility.Rotate90X(rotation, out quaternion result);
+            DrawWireCircleCore(position, result, new Vector3(size.x, 1f, size.y), color, duration);
+        }
         /// <summary>
         /// Draw a 2D wire circle oriented in the z direction.
         /// </summary>
